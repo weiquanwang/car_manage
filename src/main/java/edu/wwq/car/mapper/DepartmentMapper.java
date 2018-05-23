@@ -1,17 +1,14 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.Department;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface DepartmentMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(Department record);
-
-    int insertSelective(Department record);
+    int insert(Department department);
 
     Department selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Department record);
-
-    int updateByPrimaryKey(Department record);
+    int update(Department record);
 }

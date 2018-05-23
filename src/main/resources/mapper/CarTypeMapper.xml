@@ -17,20 +17,8 @@
     from tb_car_type
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_car_type
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="edu.wwq.car.model.CarType" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_car_type (`name`, create_time, modify_time, 
-      is_deleted)
-    values (#{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{isDeleted,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="edu.wwq.car.model.CarType" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -64,7 +52,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.wwq.car.model.CarType" >
+  <update id="update" parameterType="edu.wwq.car.model.CarType" >
     update tb_car_type
     <set >
       <if test="name != null" >
@@ -82,12 +70,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.wwq.car.model.CarType" >
-    update tb_car_type
-    set `name` = #{name,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      is_deleted = #{isDeleted,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+  
 </mapper>
