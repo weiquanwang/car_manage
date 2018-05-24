@@ -17,11 +17,13 @@
     id, license_plate_num, manufacturer, product_date, purchase_date, purchase_price, 
     load_weight, car_type_id, `status`, is_deleted
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getCarById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_car
-    where id = #{id,jdbcType=INTEGER}
+    where
+    is_deleted = 0
+    AND id = #{id,jdbcType=INTEGER}
   </select>
 
   <insert id="insert" parameterType="edu.wwq.car.model.Car" >
@@ -118,6 +120,14 @@
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="update" parameterType="java.lang.Integer" >
+    update tb_car
+    <set >
+      is_deleted = 1
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

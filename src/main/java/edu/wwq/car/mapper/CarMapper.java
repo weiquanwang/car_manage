@@ -1,6 +1,7 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.Car;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -8,7 +9,9 @@ public interface CarMapper {
 
     int insert(Car car);
 
-    Car selectByPrimaryKey(Integer id);
+    Car getCarById(@Param("id") Integer id);
 
     int update(Car car);
+
+    int delete(@Param("id") Integer id);
 }
