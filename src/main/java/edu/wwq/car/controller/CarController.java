@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -117,6 +118,19 @@ public class CarController {
             } else {
                 resultJsonMsg = new ResultJsonMsg(200, "success");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultJsonMsg = new ResultJsonMsg(500, "系统错误!");
+        }
+        return resultJsonMsg;
+    }
+
+    @RequestMapping(value = "/car", method = RequestMethod.GET)
+    public ResultJsonMsg getCarList(HttpServletRequest request, HttpServletResponse response) {
+        ResultJsonMsg resultJsonMsg = null;
+        try {
+            List<Car> carList = carService.getCarList();
+            resultJsonMsg = new ResultJsonMsg(200, "success", carList);
         } catch (Exception e) {
             e.printStackTrace();
             resultJsonMsg = new ResultJsonMsg(500, "系统错误!");

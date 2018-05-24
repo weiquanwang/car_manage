@@ -4,6 +4,8 @@ import edu.wwq.car.model.Car;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CarMapper {
 
@@ -14,4 +16,6 @@ public interface CarMapper {
     int update(Car car);
 
     int delete(@Param("id") Integer id);
+
+    List<Car> getCarList();
 }

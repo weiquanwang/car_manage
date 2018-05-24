@@ -26,23 +26,7 @@
     from tb_car_use
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_car_use
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="edu.wwq.car.model.CarUse" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_car_use (car_use_num, license_plate_num, destination, 
-      use_date, return_date, use_reason, 
-      use_user_name, `status`, create_time, 
-      modify_time, is_deleted)
-    values (#{carUseNum,jdbcType=VARCHAR}, #{licensePlateNum,jdbcType=VARCHAR}, #{destination,jdbcType=VARCHAR}, 
-      #{useDate,jdbcType=DATE}, #{returnDate,jdbcType=DATE}, #{useReason,jdbcType=VARCHAR}, 
-      #{useUserName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=INTEGER})
-  </insert>
+
   <insert id="insertSelective" parameterType="edu.wwq.car.model.CarUse" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
@@ -125,7 +109,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.wwq.car.model.CarUse" >
+  <update id="update" parameterType="edu.wwq.car.model.CarUse" >
     update tb_car_use
     <set >
       <if test="carUseNum != null" >
@@ -164,19 +148,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.wwq.car.model.CarUse" >
-    update tb_car_use
-    set car_use_num = #{carUseNum,jdbcType=VARCHAR},
-      license_plate_num = #{licensePlateNum,jdbcType=VARCHAR},
-      destination = #{destination,jdbcType=VARCHAR},
-      use_date = #{useDate,jdbcType=DATE},
-      return_date = #{returnDate,jdbcType=DATE},
-      use_reason = #{useReason,jdbcType=VARCHAR},
-      use_user_name = #{useUserName,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      is_deleted = #{isDeleted,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>

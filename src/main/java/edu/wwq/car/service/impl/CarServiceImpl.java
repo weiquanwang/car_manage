@@ -6,6 +6,8 @@ import edu.wwq.car.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarServiceImpl implements CarService {
 
@@ -47,5 +49,11 @@ public class CarServiceImpl implements CarService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public List<Car> getCarList() {
+        List<Car> carList = carMapper.getCarList();
+        return carList;
     }
 }

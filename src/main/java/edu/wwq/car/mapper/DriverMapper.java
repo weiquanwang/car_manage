@@ -1,17 +1,21 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.Driver;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface DriverMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(Driver record);
+    int insert(Driver driver);
 
-    int insertSelective(Driver record);
+    Driver getDriverById(@Param("id") Integer id);
 
-    Driver selectByPrimaryKey(Integer id);
+    int update(Driver driver);
 
-    int updateByPrimaryKeySelective(Driver record);
+    int delete(@Param("id") Integer id);
 
-    int updateByPrimaryKey(Driver record);
+    List<Driver> getDriverList();
 }

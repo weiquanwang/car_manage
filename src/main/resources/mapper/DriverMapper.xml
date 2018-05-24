@@ -21,32 +21,16 @@
     id, `name`, sex, birth_date, contact, address, `level`, entry_date, `status`, remark, 
     create_time, modify_time, is_deleted, department_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getDriverById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_driver
-    where id = #{id,jdbcType=INTEGER}
+    where
+    is_deleted = 0
+    AND id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_driver
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="edu.wwq.car.model.Driver" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_driver (`name`, sex, birth_date, 
-      contact, address, `level`, 
-      entry_date, `status`, remark, 
-      create_time, modify_time, is_deleted, 
-      department_id)
-    values (#{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{birthDate,jdbcType=DATE}, 
-      #{contact,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
-      #{entryDate,jdbcType=DATE}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=INTEGER}, 
-      #{departmentId,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="edu.wwq.car.model.Driver" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -134,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.wwq.car.model.Driver" >
+  <update id="update" parameterType="edu.wwq.car.model.Driver" >
     update tb_driver
     <set >
       <if test="name != null" >
@@ -179,21 +163,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.wwq.car.model.Driver" >
+
+  <update id="delete" parameterType="java.lang.Integer">
     update tb_driver
-    set `name` = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      birth_date = #{birthDate,jdbcType=DATE},
-      contact = #{contact,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      `level` = #{level,jdbcType=INTEGER},
-      entry_date = #{entryDate,jdbcType=DATE},
-      `status` = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      is_deleted = #{isDeleted,jdbcType=INTEGER},
-      department_id = #{departmentId,jdbcType=INTEGER}
+    <set >
+        is_deleted = 1
+    </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getDriverList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_driver
+    where
+    is_deleted = 0
+  </select>
+
 </mapper>

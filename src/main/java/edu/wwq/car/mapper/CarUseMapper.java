@@ -1,17 +1,16 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.CarUse;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CarUseMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(CarUse record);
+    int insert(CarUse carUse);
 
-    int insertSelective(CarUse record);
+    CarUse selectByPrimaryKey(@Param("id") Integer id);
 
-    CarUse selectByPrimaryKey(Integer id);
+    int update(CarUse carUse);
 
-    int updateByPrimaryKeySelective(CarUse record);
-
-    int updateByPrimaryKey(CarUse record);
 }
