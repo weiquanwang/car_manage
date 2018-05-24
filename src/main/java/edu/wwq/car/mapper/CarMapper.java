@@ -1,17 +1,14 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.Car;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CarMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(Car record);
-
-    int insertSelective(Car record);
+    int insert(Car car);
 
     Car selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Car record);
-
-    int updateByPrimaryKey(Car record);
+    int update(Car car);
 }

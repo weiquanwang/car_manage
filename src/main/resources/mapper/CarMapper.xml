@@ -23,24 +23,8 @@
     from tb_car
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_car
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="edu.wwq.car.model.Car" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_car (license_plate_num, manufacturer, product_date, 
-      purchase_date, purchase_price, load_weight, 
-      car_type_id, `status`, is_deleted
-      )
-    values (#{licensePlateNum,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{productDate,jdbcType=DATE}, 
-      #{purchaseDate,jdbcType=DATE}, #{purchasePrice,jdbcType=DECIMAL}, #{loadWeight,jdbcType=DOUBLE}, 
-      #{carTypeId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="edu.wwq.car.model.Car" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -104,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.wwq.car.model.Car" >
+  <update id="update" parameterType="edu.wwq.car.model.Car" >
     update tb_car
     <set >
       <if test="licensePlateNum != null" >
@@ -137,17 +121,5 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.wwq.car.model.Car" >
-    update tb_car
-    set license_plate_num = #{licensePlateNum,jdbcType=VARCHAR},
-      manufacturer = #{manufacturer,jdbcType=VARCHAR},
-      product_date = #{productDate,jdbcType=DATE},
-      purchase_date = #{purchaseDate,jdbcType=DATE},
-      purchase_price = #{purchasePrice,jdbcType=DECIMAL},
-      load_weight = #{loadWeight,jdbcType=DOUBLE},
-      car_type_id = #{carTypeId,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=INTEGER},
-      is_deleted = #{isDeleted,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>
