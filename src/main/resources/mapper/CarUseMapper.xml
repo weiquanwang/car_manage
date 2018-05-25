@@ -20,14 +20,16 @@
     id, car_use_num, license_plate_num, destination, use_date, return_date, use_reason, 
     use_user_name, `status`, create_time, modify_time, is_deleted, use_user_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getCarUseById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_car_use
-    where id = #{id,jdbcType=INTEGER}
+    where
+    is_deleted = 0
+    AND id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="edu.wwq.car.model.CarUse" >
+  <insert id="insert" parameterType="edu.wwq.car.model.CarUse" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -145,6 +147,14 @@
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=INTEGER},
       </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="delete" parameterType="java.lang.Integer">
+    update tb_car_use
+    <set >
+      is_deleted = 1
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

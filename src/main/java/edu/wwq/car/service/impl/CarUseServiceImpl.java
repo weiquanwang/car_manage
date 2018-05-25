@@ -6,6 +6,8 @@ import edu.wwq.car.service.CarUseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarUseServiceImpl implements CarUseService {
 
@@ -20,5 +22,34 @@ public class CarUseServiceImpl implements CarUseService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public CarUse getCarUseById(int id) {
+        CarUse carUse = carUseMapper.getCarUseById(id);
+        return carUse;
+    }
+
+    @Override
+    public boolean update(CarUse carUse) {
+        boolean result = false;
+
+        return result;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        boolean result = false;
+        int index = carUseMapper.delete(id);
+        if (index > 0) {
+            result = true;
+        }
+        return result;
+    }
+
+    @Override
+    public List<CarUse> getCarUseList() {
+        List<CarUse> carUseList = carUseMapper.getCarUseList();
+        return carUseList;
     }
 }
