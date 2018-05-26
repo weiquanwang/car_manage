@@ -1,17 +1,22 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.CarMaintenance;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface CarMaintenanceMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(CarMaintenance record);
+    int insert(CarMaintenance carMaintenance);
 
-    int insertSelective(CarMaintenance record);
+    CarMaintenance getCarMaintenanceById(@Param("id") Integer id);
 
-    CarMaintenance selectByPrimaryKey(Integer id);
+    int update(CarMaintenance carMaintenance);
 
-    int updateByPrimaryKeySelective(CarMaintenance record);
+    int delete(@Param("id") Integer id);
 
-    int updateByPrimaryKey(CarMaintenance record);
+    List<CarMaintenance> getCarMaintenanceList();
+
 }

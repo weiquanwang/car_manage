@@ -18,30 +18,16 @@
     id, car_maintenance_num, license_plate_num, maintenance_cause, maintenance_price, 
     maintenance_date, hand_staff, remark, create_time, modify_time, is_deleted
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getCarMaintenanceById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_car_maintenance
-    where id = #{id,jdbcType=INTEGER}
+    where
+    is_deleted = 0
+    AND id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_car_maintenance
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="edu.wwq.car.model.CarMaintenance" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_car_maintenance (car_maintenance_num, license_plate_num, 
-      maintenance_cause, maintenance_price, maintenance_date, 
-      hand_staff, remark, create_time, 
-      modify_time, is_deleted)
-    values (#{carMaintenanceNum,jdbcType=VARCHAR}, #{licensePlateNum,jdbcType=VARCHAR}, 
-      #{maintenanceCause,jdbcType=VARCHAR}, #{maintenancePrice,jdbcType=DECIMAL}, #{maintenanceDate,jdbcType=DATE}, 
-      #{handStaff,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="edu.wwq.car.model.CarMaintenance" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -111,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.wwq.car.model.CarMaintenance" >
+  <update id="update" parameterType="edu.wwq.car.model.CarMaintenance" >
     update tb_car_maintenance
     <set >
       <if test="carMaintenanceNum != null" >
@@ -147,18 +133,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.wwq.car.model.CarMaintenance" >
+
+  <update id="delete" parameterType="java.lang.Integer">
     update tb_car_maintenance
-    set car_maintenance_num = #{carMaintenanceNum,jdbcType=VARCHAR},
-      license_plate_num = #{licensePlateNum,jdbcType=VARCHAR},
-      maintenance_cause = #{maintenanceCause,jdbcType=VARCHAR},
-      maintenance_price = #{maintenancePrice,jdbcType=DECIMAL},
-      maintenance_date = #{maintenanceDate,jdbcType=DATE},
-      hand_staff = #{handStaff,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    <set >
+      is_deleted = 1
+    </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getCarMaintenanceList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_car_maintenance
+    where
+    is_deleted = 0
+  </select>
+
 </mapper>

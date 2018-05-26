@@ -124,21 +124,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <update id="update" parameterType="java.lang.Integer" >
+  <update id="delete" parameterType="java.lang.Integer" >
     update tb_car
     <set >
       is_deleted = 1
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-  <select id="getCarById" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from tb_car
-    where
-    is_deleted = 0
-  </select>
 
   <select id="getCarUseList" resultMap="BaseResultMap">
     select

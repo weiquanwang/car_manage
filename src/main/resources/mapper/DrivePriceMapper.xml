@@ -17,30 +17,16 @@
     id, drive_price_num, license_plate_num, price, drive_date, remark, hand_staff, create_time, 
     modify_time, is_deleted
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getDrivePriceById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_drive_price
-    where id = #{id,jdbcType=INTEGER}
+    where
+    is_deleted = 0
+    AND id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_drive_price
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="edu.wwq.car.model.DrivePrice" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_drive_price (drive_price_num, license_plate_num, price, 
-      drive_date, remark, hand_staff, 
-      create_time, modify_time, is_deleted
-      )
-    values (#{drivePriceNum,jdbcType=VARCHAR}, #{licensePlateNum,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{driveDate,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, #{handStaff,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="edu.wwq.car.model.DrivePrice" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -104,7 +90,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.wwq.car.model.DrivePrice" >
+  <update id="update" parameterType="edu.wwq.car.model.DrivePrice" >
     update tb_drive_price
     <set >
       <if test="drivePriceNum != null" >
@@ -137,17 +123,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.wwq.car.model.DrivePrice" >
+
+  <update id="delete" parameterType="java.lang.Integer" >
     update tb_drive_price
-    set drive_price_num = #{drivePriceNum,jdbcType=VARCHAR},
-      license_plate_num = #{licensePlateNum,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
-      drive_date = #{driveDate,jdbcType=DATE},
-      remark = #{remark,jdbcType=VARCHAR},
-      hand_staff = #{handStaff,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    <set >
+      is_deleted = 1
+    </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getDrivePriceList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_drive_price
+    where
+    is_deleted = 0
+  </select>
+
 </mapper>

@@ -1,17 +1,21 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.DrivePrice;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface DrivePriceMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(DrivePrice record);
+    int insert(DrivePrice drivePrice);
 
-    int insertSelective(DrivePrice record);
+    DrivePrice getDrivePriceById(@Param("id") Integer id);
 
-    DrivePrice selectByPrimaryKey(Integer id);
+    int update(DrivePrice drivePrice);
 
-    int updateByPrimaryKeySelective(DrivePrice record);
+    int delete(@Param("id") Integer id);
 
-    int updateByPrimaryKey(DrivePrice record);
+    List<DrivePrice> getDrivePriceList();
 }
