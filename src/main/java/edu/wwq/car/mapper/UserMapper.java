@@ -1,17 +1,20 @@
 package edu.wwq.car.mapper;
 
 import edu.wwq.car.model.User;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    int insert(User user);
 
-    int insertSelective(User record);
+    User getUserById(@Param("id") Integer id);
 
-    User selectByPrimaryKey(Integer id);
+    int update(User user);
 
-    int updateByPrimaryKeySelective(User record);
+    User getUserByUserNameAndPassword(@Param("userName") String userName, @Param("password") String password);
 
-    int updateByPrimaryKey(User record);
+    int delete(@Param("id") Integer id);
+
 }

@@ -17,30 +17,15 @@
     id, user_name, `password`, sex, mobile, create_time, modify_time, create_user_id, 
     `status`, is_deleted
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+
+
   <insert id="insert" parameterType="edu.wwq.car.model.User" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into tb_user (user_name, `password`, sex, 
-      mobile, create_time, modify_time, 
-      create_user_id, `status`, is_deleted
-      )
-    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
-      #{mobile,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{createUserId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="edu.wwq.car.model.User" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -104,7 +89,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.wwq.car.model.User" >
+  <update id="update" parameterType="edu.wwq.car.model.User" >
     update tb_user
     <set >
       <if test="userName != null" >
@@ -137,17 +122,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.wwq.car.model.User" >
+
+  <select id="getUserByUserNameAndPassword" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    where user_name = #{userName,jdbcType=VARCHAR}
+    AND `password` = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <update id="delete">
     update tb_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=INTEGER},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      create_user_id = #{createUserId,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=INTEGER},
-      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    <set >
+      is_deleted = 1
+    </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>
