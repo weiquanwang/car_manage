@@ -6,7 +6,9 @@ import edu.wwq.car.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -26,5 +28,40 @@ public class DepartmentServiceImpl implements DepartmentService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public Department getDepartmentById(int id) {
+        Department department = departmentMapper.getDepartmentById(id);
+        return department;
+    }
+
+    @Override
+    public boolean update(Department department) {
+        boolean result = false;
+        int index = departmentMapper.update(department);
+        if (index > 0) {
+            result = true;
+        }
+        return result;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        boolean result = false;
+        int index = departmentMapper.delete(id);
+        if (index > 0) {
+            result = true;
+        }
+        return result;
+    }
+
+    @Override
+    public List<Department> getDepartmentList() {
+        List<Department> departmentList = departmentMapper.getDepartmentList();
+        if (departmentList == null) {
+            departmentList = new ArrayList<Department>();
+        }
+        return departmentList;
     }
 }

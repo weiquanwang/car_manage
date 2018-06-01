@@ -14,11 +14,13 @@
   <sql id="Base_Column_List" >
     id, `name`, department_leader, phone, office_address, create_time, modify_time, is_deleted
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getDepartmentById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_department
-    where id = #{id,jdbcType=INTEGER}
+    where
+    is_deleted = 0
+    AND id = #{id,jdbcType=INTEGER}
   </select>
 
 
@@ -101,5 +103,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="delete" >
+    update tb_department
+    <set >
+      is_deleted = 1
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getDepartmentList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_department
+    where
+    is_deleted = 0
+  </select>
 
 </mapper>
