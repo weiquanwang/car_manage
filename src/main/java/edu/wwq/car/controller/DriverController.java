@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class DriverController {
+public class DriverController extends BaseController {
 
     @Autowired
     private DriverService driverService;

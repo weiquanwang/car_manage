@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class CarMaintenanceController {
+public class CarMaintenanceController extends BaseController {
 
     @Autowired
     private CarMaintenanceService carMaintenanceService;

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class DrivePriceController {
+public class DrivePriceController extends BaseController {
 
     @Autowired
     private DrivePriceService drivePriceService;

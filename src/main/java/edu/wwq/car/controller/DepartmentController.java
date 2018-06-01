@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class DepartmentController {
+public class DepartmentController extends BaseController {
 
     @Autowired
     private DepartmentService departmentService;
